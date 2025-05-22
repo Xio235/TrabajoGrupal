@@ -1,0 +1,88 @@
+@startuml
+
+class Agente {
+  -id: String
+  -nombre: String
+  -mision: String
+  -peligrosidad: int
+  -pagoMensual: double
+
+  +Agente(id: String, nombre: String, mision: String, peligrosidad: int, pagoMensual: double)
+  +getId(): String
+  +getNombre(): String
+  +getMision(): String
+  +getPeligrosidad(): int
+  +getPagoMensual(): double
+  +setNombre(nombre: String): void
+  +setMision(mision: String): void
+  +setPeligrosidad(peligrosidad: int): void
+  +setPagoMensual(pagoMensual: double): void
+  +getAporteFondo(): double
+  +getImpuestoAnual(): double
+  +getPagoNeto(): double
+  +getResumen(): String
+}
+
+class NodoAgente {
+  +agente: Agente
+  +siguiente: NodoAgente
+  +anterior: NodoAgente
+
+  +NodoAgente(agente: Agente)
+}
+
+class ListaDobleAgentes {
+  -cabeza: NodoAgente
+
+  +agregarAgente(agente: Agente): void
+  +modificarAgente(id: String, datosNuevos: Agente): boolean
+  +listar(): ArrayList<Agente>
+}
+
+class PilaAgentes {
+  -pila: Stack<Agente>
+
+  +push(agente: Agente): void
+  +pop(): Agente
+  +isEmpty(): boolean
+}
+
+class InterfazGrafica {
+  -lista: ListaDobleAgentes
+  -panelPrincipal: JPanel
+  -panelRegistro: JPanel
+  -txtId: JTextField
+  -txtNombre: JTextField
+  -txtMision: JTextField
+  -txtNivel: JTextField
+  -txtPago: JTextField
+  -areaResultados: JTextArea
+  -cardLayout: CardLayout
+  -modoEdicion: boolean
+  -btnGuardar: JButton
+
+  +InterfazGrafica()
+  -buscarParaModificar(): void
+  -buscarAgentePorId(id: String): Agente
+  -cargarDatosAgente(agente: Agente): void
+  -guardarNuevoAgente(): void
+  -modificarAgenteActual(): void
+  -validarCampos(): void
+  -crearAgenteDesdeFormulario(): Agente
+  -limpiarCampos(): void
+  -listarAgentes(): void
+  -mostrarInforme(): void
+}
+
+class Main {
+  +main(args: String[]): void
+}
+
+NodoAgente --> Agente
+ListaDobleAgentes --> NodoAgente
+PilaAgentes --> Agente
+InterfazGrafica --> ListaDobleAgentes
+InterfazGrafica --> Agente
+Main --> InterfazGrafica
+
+@enduml
